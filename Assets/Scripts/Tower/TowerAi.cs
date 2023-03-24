@@ -16,7 +16,7 @@ public class TowerAi : MonoBehaviour
     [SerializeField] private bool towerInAttackRange;
     [SerializeField] private Bullet bullet;
     [SerializeField] private TMP_Text distanceDisplay;
-  
+
     private bool _alreadyAttacked = true;
     private Transform _transform;
     private EnemyAi _closestEnemyPosition;
@@ -34,7 +34,7 @@ public class TowerAi : MonoBehaviour
         AttackTower();
         FindClosestEnemy();
         LookToClosestEnemy();
-        UpgradeTower();     
+        UpgradeTower();
     }    
 
     private void AttackTower()
@@ -96,16 +96,17 @@ public class TowerAi : MonoBehaviour
                 distanceDisplay.text = "Distance To Closest Enemy: " + _distanceToEnemy.ToString("0.0") + "m";
             }      
         }
-
-        Debug.DrawLine(this.transform.position, closestEnemy.transform.position, Color.red);
     }
 
     private void LookToClosestEnemy()
     {
-        Vector3 vectorToTarget = _closestEnemyPosition.transform.position - transform.position;
-        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotatinModifier;
-        Quaternion quat = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, quat, Time.deltaTime * speedRotateTower);
+        if(_closestEnemyPosition != null)
+        {
+            Vector3 vectorToTarget = _closestEnemyPosition.transform.position - transform.position;
+            float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotatinModifier;
+            Quaternion quat = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, quat, Time.deltaTime * speedRotateTower);
+        }       
     }
 
     private void OnDrawGizmosSelected()

@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
        switch(_counter)
         {
             case 1:
-                neonCircle.transform.localScale = new Vector3(6, 6, 6);
+                neonCircle.transform.localScale = new Vector3(7, 7, 7);
             break;
 
             case 2:
